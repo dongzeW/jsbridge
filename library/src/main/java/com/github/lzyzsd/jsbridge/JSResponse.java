@@ -5,7 +5,7 @@ package com.github.lzyzsd.jsbridge;
  * Author: bigwang
  * Description:
  */
-class JSResponse {
+public class JSResponse {
 
     public String responseId;
 

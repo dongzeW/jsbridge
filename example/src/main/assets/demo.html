@@ -104,7 +104,7 @@
             bridge.registerHandler("functionInJs", function(data, responseCallback) {
                 document.getElementById("show").innerHTML = ("data from Java: = " + data);
                 if (responseCallback) {
-                    var responseData = "Javascript Says Right back aka!";
+                    var responseData = {'param': '中文测试'};
                     responseCallback(responseData);
                 }
             });

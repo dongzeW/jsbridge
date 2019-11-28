@@ -5,7 +5,7 @@ package com.github.lzyzsd.jsbridge;
  * Author: bigwang
  * Description:
  */
-class JSRequest {
+public class JSRequest {
 
     public String callbackId;
 

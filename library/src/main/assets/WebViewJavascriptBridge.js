@@ -57,9 +57,19 @@
              console.log(e);
          }
          if (typeof fn === 'function'){
-             var responseData = fn.call(this, JSON.stringify(message), callbackId);
+             console.log('fn是啥方法吗:='+ fn);
+             console.log('fn是啥方法吗:='+ handlerName);
+//             var responseData = fn.call(this,JSON.stringify(message), callbackId);
+             var responseData;
+             if(handlerName == "send"){
+                 console.log(handlerName);
+                 responseData = android.send(JSON.stringify(message), callbackId);
+             }else if(handlerName == "response"){
+                 console.log(handlerName);
+                 responseData = android.response(JSON.stringify(message), callbackId);
+             }
              if(responseData){
-              console.log('response message: '+ responseData);
+                 console.log('response message: '+ responseData);
                  responseCallback = responseCallbacks[callbackId];
                  if (!responseCallback) {
                      return;
@@ -76,6 +86,7 @@
             var message = JSON.parse(messageJSON);
             var responseCallback;
             //java call finished, now need to call js callback function
+            console.log('dispatchMessage message.responseId:= '+ message.responseId + "=:message.callbackId:="+message.callbackId);
             if (message.responseId) {
                 responseCallback = responseCallbacks[message.responseId];
                 if (!responseCallback) {
@@ -91,7 +102,6 @@
                         _doSend('response', responseData, callbackResponseId);
                     };
                 }
-
                 var handler = WebViewJavascriptBridge._messageHandler;
                 if (message.handlerName) {
                     handler = messageHandlers[message.handlerName];
@@ -115,7 +125,6 @@
             receiveMessageQueue.push(messageJSON);
         }
         _dispatchMessageFromNative(messageJSON);
-       
     }
 
     var WebViewJavascriptBridge = window.WebViewJavascriptBridge = {
